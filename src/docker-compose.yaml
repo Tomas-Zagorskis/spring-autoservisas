@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: autoservisas
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5555:5555"
+  dbclient:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: tomas@email.com
+      PGADMIN_DEFAULT_PASSWORD: p
+    ports:
+      - "8889:80"

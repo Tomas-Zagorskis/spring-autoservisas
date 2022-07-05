@@ -9,7 +9,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public List<User> listAll() {
 

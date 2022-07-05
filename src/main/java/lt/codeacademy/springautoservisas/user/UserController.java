@@ -17,8 +17,10 @@ public class UserController {
 
     @GetMapping("/login")
     public String showLoginPage() {
+
         return "login";
     }
+
 
     @GetMapping("/users")
     public String showUserList(Model model) {

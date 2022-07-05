@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{login.title}">Login</title>
 </head>
 <body>
-<form th:object="${user}" action="" method="get">
-    <div>
-        <label th:text="#{login.username}"></label>
-        <input th:field="*{username}" required>
-    </div>
-    <div>
-        <label th:text="#{login.password}"></label>
-        <input th:field="*{password}" type="password" required>
-    </div>
-    <div>
-        <button th:text="#{login}" type="submit">Login</button>
-    </div>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<form th:action="@{/login}" method="post">
+    <div><label th:text="#{login.username}"> User Name : <input type="text" name="username"/> </label></div>
+    <div><label th:text="#{login.password}"> Password: <input type="password" name="password"/> </label></div>
+    <div><input type="submit" th:text="#{login}"/></div>
 </form>
 </body>
 </html>
