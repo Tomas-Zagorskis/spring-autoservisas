@@ -1,16 +1,14 @@
 package lt.codeacademy.springautoservisas.controllers;
 
 import lombok.AllArgsConstructor;
+import lt.codeacademy.springautoservisas.CompanyInfo;
 import lt.codeacademy.springautoservisas.entities.Client;
 import lt.codeacademy.springautoservisas.services.ClientService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
@@ -21,6 +19,12 @@ import java.util.UUID;
 public class ClientController {
 
     private final ClientService clientService;
+    private final CompanyInfo companyInfo;
+
+    @ModelAttribute("companyInfo")
+    public CompanyInfo addCompanyDataToModel() {
+        return companyInfo;
+    }
 
     @GetMapping
     public String showClientsPage(

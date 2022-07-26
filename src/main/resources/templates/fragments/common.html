@@ -68,10 +68,22 @@
                     <hr class="w-100 clearfix d-md-none"/>
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                         <h6 th:text="#{contact}" class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-                        <p><i class="fas fa-home mr-3"></i> Kaunas, Taikos 154, LTU</p>
-                        <p><i class="fas fa-envelope mr-3"></i> info@qfix.com</p>
-                        <p><i class="fas fa-phone mr-3"></i>+370 67 12 345</p>
-                        <p><i class="fas fa-print mr-3"></i>+370 67 12 345</p>
+                        <div class="company-info">
+                            <i class="fas fa-home mr-3"></i>
+                            <p th:text="${companyInfo.address}"></p>
+                        </div>
+                        <div class="company-info">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <p th:text="${companyInfo.email}"></p>
+                        </div>
+                        <div class="company-info">
+                            <i class="fas fa-phone mr-3"></i>
+                            <p th:text="${companyInfo.phone}"></p>
+                        </div>
+                        <div class="company-info">
+                            <i class="fas fa-print mr-3"></i>
+                            <p th:text="${companyInfo.fax}"></p>
+                        </div>
                     </div>
                 </div>
             </section>

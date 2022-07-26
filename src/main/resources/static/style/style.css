@@ -123,6 +123,9 @@ form label, h3 {
         background-position: 0% 50%;
     }
 }
+.company-info > p {
+    display: inline-block;
+}
 
 /*PAGINATION*/
 
