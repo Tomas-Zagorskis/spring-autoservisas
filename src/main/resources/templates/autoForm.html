@@ -6,8 +6,19 @@
 <div id="main">
     <div class="row align-items-center justify-content-center">
         <div class="col-md-7 py-5">
-            <h3 th:text="#{auto.form.title}" class="mb-5">Register New Auto</h3>
+            <h3 th:if="${auto.plateNr eq null}" th:text="#{auto.form.title}" class="mb-5">Register New Auto</h3>
+            <h3 th:if="${auto.plateNr ne null}" th:text="#{auto.edit.form.title}" class="mb-5">Edit Auto</h3>
             <form th:object="${auto}" method="POST">
+                <div th:if="*{regTime ne null}" class="row mb-2 form-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{regTime}" for="regTime">Brand</label>
+                            <input th:field="*{regTime}" type="text" class="form-control"
+                                   th:placeholder="#{*{regTime}}"
+                                   id="regTime">
+                        </div>
+                    </div>
+                </div>
                 <div class="row mb-2">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -29,11 +40,11 @@
                 <div class="row mb-2">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label th:text="#{plateNr}" for="platenr">Plate Number</label>
+                            <label th:text="#{plateNr}" for="plateNr">Plate Number</label>
                             <input th:field="*{plateNr}" type="text" class="form-control"
                                    th:placeholder="#{placeholder.plateNr}"
                                    th:disabled="*{plateNr != null}"
-                                   id="platenr">
+                                   id="plateNr">
                         </div>
                     </div>
                     <div class="col-md-6">
