@@ -32,17 +32,17 @@ INSERT INTO CLIENTS (id, name, surname, email, phone_nr, city, address) VALUES
     ('474d759c-133d-4ef3-b621-c271804da8b3','Tadas','Zukauskas','mech12f@gmail.com','8765842139','Jonava','Kauno 2');
 
 INSERT INTO Autos (plate_nr, registration_time, brand, model, year, issue, fixed, costs, client_id) VALUES
-    ('afs456', '2022-07-21 22:11', 'audi','a6','2005','sugedes variklis',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b1'),
-    ('gfd123','2022-08-02 10:11', 'vw','golf','2012','skiles stiklas',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b1'),
-    ('gfd555','2022-04-15 12:11', 'toyota','raw4','2016','vaziuokle',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b2'),
-    ('uyt666','2022-07-02 21:11', 'opel','corsa','2002','pakeist alyva',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b3'),
-    ('qwe845','2022-07-08 08:11', 'audi','q7','2015','sumontuot ratus',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b4'),
-    ('tre333','2022-07-25 10:11', 'bmw','x5','2009','pakeist filtrus',false,0.0,'474d759c-133d-4ef3-b621-c271804da8b3');
+    ('afs456', '2022-07-21 22:11', 'audi','a6',2005,'sugedes variklis',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b1'),
+    ('gfd123','2022-08-02 10:11', 'vw','golf',2012,'skiles stiklas',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b1'),
+    ('gfd555','2022-04-15 12:11', 'toyota','raw4',2016,'vaziuokle',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b2'),
+    ('uyt666','2022-07-02 21:11', 'opel','corsa',2002,'pakeist alyva',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b3'),
+    ('qwe845','2022-07-08 08:11', 'audi','q7',2015,'sumontuot ratus',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b4'),
+    ('tre333','2022-07-25 10:11', 'bmw','x5',2009,'pakeist filtrus',false,0.0,'474d759c-133d-4ef3-b621-c271804da8b3');
 
 INSERT INTO History (id, plate_nr, registration_time, brand, model, year, issue, fixed, costs, client_id) VALUES
-    (91, 'afs456', '2022-07-21 22:11', 'audi','a6','2005','sugedes variklis',true,69.0,'474d759c-133d-4ef3-b621-c271804da7b1'),
-    (92, 'gfd123','2022-08-02 10:11', 'vw','golf','2012','skiles stiklas',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b1'),
-    (93, 'gfd555','2022-04-15 12:11', 'toyota','raw4','2016','vaziuokle',true,20.0,'474d759c-133d-4ef3-b621-c271804da7b2'),
-    (94, 'uyt666','2022-07-02 21:11', 'opel','corsa','2002','pakeist alyva',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b3'),
-    (95, 'qwe845','2022-07-08 08:11', 'audi','q7','2015','sumontuot ratus',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b4'),
-    (96, 'tre333','2022-07-25 10:11', 'bmw','x5','2009','pakeist filtrus',false,0.0,'474d759c-133d-4ef3-b621-c271804da8b3');
+    (91, 'afs456', '2022-07-21 22:11', 'audi','a6',2005,'sugedes variklis',true,69.0,'474d759c-133d-4ef3-b621-c271804da7b1'),
+    (92, 'gfd123','2022-08-02 10:11', 'vw','golf',2012,'skiles stiklas',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b1'),
+    (93, 'gfd555','2022-04-15 12:11', 'toyota','raw4',2016,'vaziuokle',true,20.0,'474d759c-133d-4ef3-b621-c271804da7b2'),
+    (94, 'uyt666','2022-07-02 21:11', 'opel','corsa',2002,'pakeist alyva',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b3'),
+    (95, 'qwe845','2022-07-08 08:11', 'audi','q7',2015,'sumontuot ratus',false,0.0,'474d759c-133d-4ef3-b621-c271804da7b4'),
+    (96, 'tre333','2022-07-25 10:11', 'bmw','x5',2009,'pakeist filtrus',false,0.0,'474d759c-133d-4ef3-b621-c271804da8b3');
