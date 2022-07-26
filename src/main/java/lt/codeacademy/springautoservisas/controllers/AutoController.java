@@ -6,6 +6,7 @@ import lt.codeacademy.springautoservisas.entities.Client;
 import lt.codeacademy.springautoservisas.services.AutoService;
 import lt.codeacademy.springautoservisas.services.ClientService;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,7 @@ public class AutoController {
 
     @GetMapping
     public String showAutosPage(
-            @SortDefault(sort = "brand", caseSensitive = false)
+            @SortDefault(sort = "regTime", direction = Sort.Direction.DESC)
             Pageable pageable, Model model, String keyword) {
 
         if (keyword != null) {
