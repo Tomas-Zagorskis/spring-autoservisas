@@ -6,10 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -18,10 +16,13 @@ import java.util.UUID;
 @Getter
 @Entity
 @Table(name = "history")
-public class HistoryOfAutos {
+public class HistoryOfClient implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Type(type = "uuid-char")
+    @Column(name = "client_id")
     private UUID clientId;
     @Column(name = "plate_nr")
     private String plateNr;
