@@ -6,23 +6,23 @@
 
 <div id="main" class="d-flex flex-column gap-2 align-items-center">
 
-    <h5>History of Client</h5>
     <div th:if="${history.empty}">
         <h2 th:text="#{empty}"></h2>
     </div>
     <table th:if="${!history.empty}"
            th:classappend="${history.totalPages < 2 ? 'mb-5' : ''}"
            class="table table-striped my-2">
+        <h2>History of Client</h2>
         <thead>
-            <tr>
-                <th th:text="#{regTime}" scope="col"></th>
-                <th th:text="#{plateNr}" scope="col"></th>
-                <th th:text="#{brand}" scope="col"></th>
-                <th th:text="#{model}" scope="col"></th>
-                <th th:text="#{year}" scope="col"></th>
-                <th th:text="#{issue}" scope="col"></th>
-                <th th:text="#{costs}" scope="col"></th>
-            </tr>
+        <tr>
+            <th th:text="#{regTime}" scope="col"></th>
+            <th th:text="#{plateNr}" scope="col"></th>
+            <th th:text="#{brand}" scope="col"></th>
+            <th th:text="#{model}" scope="col"></th>
+            <th th:text="#{year}" scope="col"></th>
+            <th th:text="#{issue}" scope="col"></th>
+            <th th:text="#{costs}" scope="col"></th>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="hist : ${history}">
