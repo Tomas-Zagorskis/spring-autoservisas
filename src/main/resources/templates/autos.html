@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout(title=#{index.title}, search=@{/autos}, content=~{:: #main})">
+
+<body class="d-flex flex-column">
+
+<div id="main" class="d-flex flex-column gap-2 align-items-center">
+    <div th:replace="fragments/common :: successMsg(${message}, ${plateNr})"></div>
+    <a th:href="@{/autos/new}" class="align-self-start cool-link mt-3">
+        <h5 th:text="|+ #{createNew} #{newAuto}|">Create New Client</h5>
+    </a>
+    <div th:if="${autos.totalElements} > 1"
+         class="align-self-end sorting-label">
+        <span th:text="|#{sorting}: |" class="text-for-sorting">Sort by: </span>
+        <a th:replace="fragments/common :: sortIgnCase(${autos}, 'regTime')"></a>
+        <a th:replace="fragments/common :: sortIgnCase(${autos}, 'brand')"></a>
+        <a th:replace="fragments/common :: sortIgnCase(${autos}, 'model')"></a>
+        <a th:replace="fragments/common :: sort(${autos}, 'year')"></a>
+        <a th:replace="fragments/common :: sortIgnCase(${autos}, 'client.surname')"></a>
+    </div>
+    <div th:if="${!autos.empty}"
+         th:classappend="${autos.totalPages < 2 ? 'mb-5' : ''}"
+         class="d-flex flex-row flex-wrap m-3 justify-content-center">
+        <div th:if="${autos.empty}">
+            <h2 th:text="#{empty}"></h2>
+        </div>
+        <div th:each="auto : ${autos}" class="card m-2">
+            <img class="card-img-top" th:src="@{/images/car logo.png}" alt="Car logo">
+            <div class="card-body text-capitalize text-center">
+                <h5 th:text="|${auto.brand} ${auto.model}|" class="card-title">Card title</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <label th:text="#{regTime}"></label>
+                <li th:text="${auto.regTime}" class="list-group-item">Year</li>
+                <label th:text="#{year}"></label>
+                <li th:text="${auto.year}" class="list-group-item">Year</li>
+                <label th:text="#{plateNr}"></label>
+                <li th:text="${auto.plateNr}" class="list-group-item text-uppercase">Plate Nr</li>
+                <label th:text="#{client}"></label>
+                <li th:text="|${auto.client.name} ${auto.client.surname}|" class="list-group-item">Client</li>
+                <label th:text="#{fixed}"></label>
+                <th:block th:if="${auto.fixed}">
+                    <li th:text="#{yes.fixed}" class="list-group-item text-green">Fixed</li>
+                    <label th:text="#{costs}"></label>
+                    <li th:text="|${auto.costs} €|" class="list-group-item">Costs</li>
+                </th:block>
+                <th:block th:if="${!auto.fixed}">
+                    <li th:text="#{no.fixed}" class="list-group-item text-red">Not fixed</li>
+                    <label th:text="#{issue}"></label>
+                    <li th:text="${auto.issue}" class="list-group-item">Issue</li>
+                </th:block>
+            </ul>
+            <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <a th:href="@{/autos/{id}(id=${auto.plateNr})}" th:text="#{edit}" class="btn-pill">Edit</a>
+                <form th:action="@{/autos/reclaim/{id}(id=${auto.plateNr})}" method="post">
+                    <button th:text="#{reclaim}" class="btn-pill">Reclaim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <ul th:replace="fragments/common :: pagination(${autos})"></ul>
+</div>
+</body>
+</html>
