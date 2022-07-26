@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout(title=#{index.title}, search=@{/autos}, content=~{:: #main})">
+
+<body class="d-flex flex-column">
+<div id="main">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7 py-5">
+            <h3 th:text="#{auto.form.title}" class="mb-5">Register New Auto</h3>
+            <form th:object="${auto}" method="POST">
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{brand}" for="brand">Brand</label>
+                            <input th:field="*{brand}" type="text" class="form-control"
+                                   th:placeholder="#{placeholder.brand}"
+                                   id="brand">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{model}" for="model">Model</label>
+                            <input th:field="*{model}" type="text" class="form-control"
+                                   th:placeholder="#{placeholder.model}"
+                                   id="model">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{plateNr}" for="platenr">Plate Number</label>
+                            <input th:field="*{plateNr}" type="text" class="form-control"
+                                   th:placeholder="#{placeholder.plateNr}"
+                                   th:disabled="*{plateNr != null}"
+                                   id="platenr">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{year}" for="year">Year</label>
+                            <input th:field="*{year}" type="text" class="form-control"
+                                   th:placeholder="#{placeholder.year}"
+                                   id="year">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-3">
+                            <label th:text="#{issue}" for="issue">Issue</label>
+                            <textarea th:field="*{issue}" type="text" class="form-control"
+                                      th:placeholder="#{placeholder.issue}" id="issue"
+                                      rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{client}" for="clients">Clients:</label>
+                            <div class="select">
+                                <select th:field="*{client}" name="Clients" class="form-control" id="clients" required>
+                                    <option th:text="#{choose.client}" value="" hidden>Choose Client</option>
+                                    <option th:each="client : ${clients}"
+                                            th:text="|${client.name} ${client.surname}|"
+                                            th:value="${client.id}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a th:href="@{/clients/new}" class="cool-link mt-4">
+                                <span th:text="|+ #{createNew} #{newClient}|">Create New Client</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label th:text="#{costs}" for="costs">Costs</label>
+                            <input th:field="*{costs}" type="number" class="form-control"
+                                   id="costs" step=".01">
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="|#{fixed}?|" for="fix">Is fixed?:</label>
+                            <input th:field="*{fixed}" type="checkbox" class="form-check-inline"
+                                   id="fix">
+                        </div>
+                    </div>
+                <div class="text-center mt-3">
+                    <button th:text="#{save}" type="submit" class="btn btn-primary px-5 m-2">Save</button>
+                    <button th:text="#{cancel}" type="button" class="btn btn-secondary px-5 m-2" onclick="cancelForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function cancelForm() {
+            window.location = "[[@{/autos}]]";
+        }
+    </script>
+</div>
+</body>
+</html>
