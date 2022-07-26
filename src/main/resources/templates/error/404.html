@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title.pageNotFound}">Puslapis nerastas!</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        * {
+            margin: 0;
+        }
+        body {
+            height: 100vh;
+            width: 100vw;
+            background-image: url("/images/404.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            text-align: center;
+            margin: 0;
+        }
+        h1 {
+            padding-top: 16%;
+            font-size: 2vw;
+            color: #555;
+
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="#{errors.pageNotFound(${path})}">Jusu puslapis nerastas!</h1>
+</body>
+</html>
