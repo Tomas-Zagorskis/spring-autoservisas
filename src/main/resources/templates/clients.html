@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout(title=#{index.title}, search=@{/clients}, content=~{:: #main})">
+
+<body class="d-flex flex-column">
+
+<div id="main" class="d-flex flex-column gap-2 align-items-center">
+
+    <div th:replace="fragments/common :: successMsg(${message}, ${fullName})"></div>
+    <a th:href="@{/clients/new}" class="align-self-start cool-link mt-3">
+        <h5 th:text="|+ #{createNew} #{newClient}|">Create New Client</h5>
+    </a>
+    <div th:if="${clients.empty}">
+        <h2 th:text="#{empty}"></h2>
+    </div>
+    <table th:if="${!clients.empty}"
+           th:classappend="${clients.totalPages < 2 ? 'mb-5' : ''}"
+           class="table table-striped my-2">
+        <thead>
+        <tr>
+            <th scope="col">
+                <a th:replace="fragments/common :: sortIgnCase(${clients}, 'name')"></a>
+            </th>
+            <th scope="col">
+                <a th:replace="fragments/common :: sortIgnCase(${clients}, 'surname')"></a>
+            </th>
+            <th scope="col">
+                <a th:replace="fragments/common :: sortIgnCase(${clients}, 'email')"></a>
+            </th>
+            <th scope="col">
+                <a th:replace="fragments/common :: sort(${clients}, 'phoneNr')"></a>
+            </th>
+            <th scope="col">
+                <a th:replace="fragments/common :: sortIgnCase(${clients}, 'city')"></a>
+            <th scope="col">
+            <a th:replace="fragments/common :: sortIgnCase(${clients}, 'address')"></a>
+            </th>
+            <th scope="col">
+                <span th:text="#{history}" class="cool-link">History</span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.name}"></td>
+            <td th:text="${client.surname}"></td>
+            <td th:text="${client.email}"></td>
+            <td th:text="${client.phoneNr}"></td>
+            <td th:text="${client.city}"></td>
+            <td th:text="${client.address}"></td>
+            <td><a th:href="@{/autos}" class="btn-pill">Autos</a></td>
+            <td>
+                <a th:href="@{/clients/{id}(id=${client.id})}" th:text="#{edit}" class="cool-link">Edit</a>
+                <form th:action="@{/clients/delete/{id}(id=${client.id})}" method="post">
+                    <button th:text="#{delete}" class="cool-link">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul th:replace="fragments/common :: pagination(${clients})"></ul>
+</div>
+</body>
+</html>
