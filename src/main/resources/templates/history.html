@@ -32,7 +32,8 @@
             <td th:text="${hist.model}"></td>
             <td th:text="${hist.year}"></td>
             <td th:text="${hist.issue}"></td>
-            <td th:text="${hist.fixed ? hist.costs : hist.fixed}"></td>
+            <td th:if="${hist.fixed}" th:text="${hist.costs}"></td>
+            <td th:if="${!hist.fixed}" th:text="#{no.fixed}"></td>
         </tr>
         </tbody>
     </table>

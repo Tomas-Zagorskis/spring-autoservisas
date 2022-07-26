@@ -54,6 +54,9 @@ ul > label {
     padding: .5rem 0 0 .5rem;
     color: #555;
 }
+.activate {
+    color: rgba(255,255,255,.25) !important;
+}
 form label, h3 {
     color: #ddd;
 }
