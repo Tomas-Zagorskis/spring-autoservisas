@@ -48,7 +48,7 @@
             <td th:text="${client.phoneNr}"></td>
             <td th:text="${client.city}"></td>
             <td th:text="${client.address}"></td>
-            <td><a th:href="@{/autos}" class="btn-pill">Autos</a></td>
+            <td><a th:href="@{/clients/history/{id}(id=${client.id})}" class="btn-pill">Autos</a></td>
             <td>
                 <a th:href="@{/clients/{id}(id=${client.id})}" th:text="#{edit}" class="cool-link">Edit</a>
                 <form th:action="@{/clients/delete/{id}(id=${client.id})}" method="post">
