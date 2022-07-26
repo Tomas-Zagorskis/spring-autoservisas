@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @AllArgsConstructor
@@ -17,15 +18,30 @@ import java.io.Serializable;
 public class Auto implements Serializable {
 
     @Id
+    @NotBlank
+    @Size(min=1, max=10)
     @Column(name = "plate_nr")
     private String plateNr;
+
     @Column(name = "registration_time")
     private String regTime;
+
+    @NotBlank
     private String brand;
+
+    @NotBlank
     private String model;
-    private String year;
+
+    @Digits(integer = 4, fraction = 0)
+    @Positive
+    private long year;
+
+    @Size(max=255)
     private String issue;
     private boolean fixed;
+
+    @NotNull
+    @PositiveOrZero
     private double costs;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

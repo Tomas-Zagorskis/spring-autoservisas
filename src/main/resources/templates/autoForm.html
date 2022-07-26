@@ -26,6 +26,7 @@
                             <input th:field="*{brand}" type="text" class="form-control"
                                    th:placeholder="#{placeholder.brand}"
                                    id="brand">
+                            <p th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class="errors">Name field errors</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -34,6 +35,7 @@
                             <input th:field="*{model}" type="text" class="form-control"
                                    th:placeholder="#{placeholder.model}"
                                    id="model">
+                            <p th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="errors">Name field errors</p>
                         </div>
                     </div>
                 </div>
@@ -45,14 +47,16 @@
                                    th:placeholder="#{placeholder.plateNr}"
                                    th:disabled="*{plateNr != null}"
                                    id="plateNr">
+                            <p th:if="${#fields.hasErrors('plateNr')}" th:errors="*{plateNr}" class="errors">Name field errors</p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label th:text="#{year}" for="year">Year</label>
-                            <input th:field="*{year}" type="text" class="form-control"
+                            <input th:field="*{year}" type="number" class="form-control"
                                    th:placeholder="#{placeholder.year}"
                                    id="year">
+                            <p th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="errors">Name field errors</p>
                         </div>
                     </div>
                 </div>
@@ -63,6 +67,7 @@
                             <textarea th:field="*{issue}" type="text" class="form-control"
                                       th:placeholder="#{placeholder.issue}" id="issue"
                                       rows="2"></textarea>
+                            <p th:if="${#fields.hasErrors('issue')}" th:errors="*{issue}" class="errors">Name field errors</p>
                         </div>
                     </div>
                 </div>
@@ -89,24 +94,27 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label th:text="#{costs}" for="costs">Costs</label>
                             <input th:field="*{costs}" type="number" class="form-control"
                                    id="costs" step=".01">
+                            <p th:if="${#fields.hasErrors('costs')}" th:errors="*{costs}" class="errors">Name field errors</p>
                         </div>
                     </div>
                 </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label th:text="|#{fixed}?|" for="fix">Is fixed?:</label>
-                            <input th:field="*{fixed}" type="checkbox" class="form-check-inline"
-                                   id="fix">
-                        </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label th:text="|#{fixed}?|" for="fix">Is fixed?:</label>
+                        <input th:field="*{fixed}" type="checkbox" class="form-check-inline"
+                               id="fix">
                     </div>
+                </div>
                 <div class="text-center mt-3">
                     <button th:text="#{save}" type="submit" class="btn btn-primary px-5 m-2">Save</button>
-                    <button th:text="#{cancel}" type="button" class="btn btn-secondary px-5 m-2" onclick="cancelForm()">Cancel</button>
+                    <button th:text="#{cancel}" type="button" class="btn btn-secondary px-5 m-2" onclick="cancelForm()">
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>

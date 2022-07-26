@@ -12,8 +12,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 
 @AllArgsConstructor
@@ -53,8 +56,13 @@ public class AutoController {
     }
 
     @PostMapping("/new")
-    public String addAuto(Auto auto, Client client, RedirectAttributes redirectAttributes) {
+    public String addAuto(@Valid Auto auto, BindingResult errors, Model model,
+                          Client client, RedirectAttributes redirectAttributes) {
 
+        if (errors.hasErrors()) {
+            model.addAttribute("clients", clientService.getClients(Pageable.unpaged()));
+            return "autoForm";
+        }
         autoService.addAuto(auto, client);
         historyService.addStory(client.getId(), auto);
         redirectAttributes.addFlashAttribute("message", "msg.auto.create.success");
