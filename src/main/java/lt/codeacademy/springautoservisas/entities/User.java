@@ -1,4 +1,4 @@
-package lt.codeacademy.springautoservisas.user;
+package lt.codeacademy.springautoservisas.entities;
 
 import lombok.*;
 

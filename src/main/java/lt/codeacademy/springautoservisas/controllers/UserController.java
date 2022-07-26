@@ -1,6 +1,9 @@
-package lt.codeacademy.springautoservisas.user;
+package lt.codeacademy.springautoservisas.controllers;
 
 import lombok.AllArgsConstructor;
+import lt.codeacademy.springautoservisas.entities.User;
+import lt.codeacademy.springautoservisas.exceptions.UserNotFoundException;
+import lt.codeacademy.springautoservisas.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

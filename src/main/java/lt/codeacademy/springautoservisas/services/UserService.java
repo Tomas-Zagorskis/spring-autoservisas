@@ -1,6 +1,9 @@
-package lt.codeacademy.springautoservisas.user;
+package lt.codeacademy.springautoservisas.services;
 
 import lombok.AllArgsConstructor;
+import lt.codeacademy.springautoservisas.entities.User;
+import lt.codeacademy.springautoservisas.repos.UserRepository;
+import lt.codeacademy.springautoservisas.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
