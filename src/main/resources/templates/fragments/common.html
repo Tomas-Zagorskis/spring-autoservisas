@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--Success msg-->
+<div th:fragment="successMsg(message, arg)"
+     th:if="${message} ne null">
+    <span th:text="#{${message}(${arg})}" class="alert alert-success mt-2 disappear" role="alert"></span>
+</div>
+<!--Sort fragment-->
+<a th:fragment="sortIgnCase(obj, string)"
+   th:with="ascending=${obj.sort.getOrderFor(string)?.direction?.name() eq 'ASC'}"
+   th:href="@{''(sort=${string} + ',' + ${ascending ? 'DESC' : 'ASC'} + ',ignoreCase')}"
+   th:text="#{${string}}" class="cool-link"></a>
+<a th:fragment="sort(obj, string)"
+   th:with="ascending=${obj.sort.getOrderFor(string)?.direction?.name() eq 'ASC'}"
+   th:href="@{''(sort=${string} + ',' + ${ascending ? 'DESC' : 'ASC'})}"
+   th:text="#{${string}}" class="cool-link"></a>
+<!--PAGINATION FRAGMENT-->
+<div th:fragment="pagination(items)"
+     th:if="${items.totalPages > 1}">
+    <div class="my-pagination"
+         th:with="order=${items.sort.sorted ? items.sort.iterator().next() : null},
+                 ignoreCase=${order ne null and order.ignoreCase ? 'ignoreCase' : ''},
+                 orderParam=${order ne null ? order.property + ',' + order.direction.name() + ',' + ignoreCase : null}">
+
+        <a th:if="${items.hasPrevious()}"
+           th:href="@{''(page=${items.number - 1}, sort=${orderParam})}"
+           class="page-numbers prev" aria-label="Previous">&laquo;</a>
+        <span th:if="${!items.hasPrevious()}"
+              class="page-numbers prev-active" aria-label="Previous">&laquo;</span>
+
+        <a th:each="page : ${#numbers.sequence(1, items.totalPages)}" class="page-numbers"
+           th:classappend="${items.number == page - 1 ? 'current' : ''}"
+           th:href="@{''(page=${page - 1}, sort=${orderParam})}" th:text="${page}">1</a>
+
+        <a th:if="${items.hasNext()}"
+           th:href="@{''(page=${items.number + 1}, sort=${orderParam})}"
+            class="page-numbers next" aria-label="Next">&raquo;</a>
+        <span th:if="${!items.hasNext()}"
+              class="page-numbers next-active" aria-label="Next">&raquo;</span>
+    </div>
+    <div th:text="|#{total.items}: ${items.totalElements}|"
+         class="total-text"></div>
+</div>
+
+<!--FOOTER FRAGMENT-->
+<footer th:fragment="footer" class="footer bg-dark flex-shrink-0">
+    <div class="text-center text-lg-start text-white">
+        <div class="pb-0">
+            <section class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mt-3">
+                        <h6 th:text="#{index.title}" class="text-uppercase mb-4 font-weight-bold">
+                            QFix - Autoservice
+                        </h6>
+                        <p>
+                            Donec posuere, mauris sed vehicula hendrerit, magna ligula tincidunt leo, eget fermentum
+                            tellus
+                            tortor sit amet magna. Pellentesque ullamcorper scelerisque erat, ut pellentesque leo rutrum
+                            eget. Phasellus quis lacinia tortor. Proin hendrerit dignissim lectus. Curabitur cursus at
+                            tortor
+                            et tristique. Suspendisse viverra urna at mi efficitur, ac porttitor felis congue. Maecenas
+                            euismod
+                            blandit felis ullamcorper condimentum. Proin elementum iaculis nunc, eget vulputate ligula
+                            iaculis eget.
+                        </p>
+                    </div>
+                    <hr class="w-100 clearfix d-md-none"/>
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 th:text="#{contact}" class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                        <p><i class="fas fa-home mr-3"></i> Kaunas, Taikos 154, LTU</p>
+                        <p><i class="fas fa-envelope mr-3"></i> info@qfix.com</p>
+                        <p><i class="fas fa-phone mr-3"></i>+370 67 12 345</p>
+                        <p><i class="fas fa-print mr-3"></i>+370 67 12 345</p>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section class="container pt-0">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-7 col-lg-8 text-center text-md-start">
+                        <div class="p-3">
+                            © 2022 Copyright
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                        <a class="btn btn-outline-light btn-floating m-1 rounded-circle px-3" role="button">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</footer>
+</html>
