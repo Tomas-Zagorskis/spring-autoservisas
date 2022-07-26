@@ -5,6 +5,7 @@ import lt.codeacademy.springautoservisas.entities.Auto;
 import lt.codeacademy.springautoservisas.entities.Client;
 import lt.codeacademy.springautoservisas.services.AutoService;
 import lt.codeacademy.springautoservisas.services.ClientService;
+import lt.codeacademy.springautoservisas.services.HistoryService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
@@ -16,9 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 @AllArgsConstructor
 @Controller
@@ -27,6 +25,7 @@ public class AutoController {
 
     private final AutoService autoService;
     private final ClientService clientService;
+    private final HistoryService historyService;
 
     @GetMapping
     public String showAutosPage(
@@ -52,10 +51,8 @@ public class AutoController {
     @PostMapping("/new")
     public String addAuto(Auto auto, Client client, RedirectAttributes redirectAttributes) {
 
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        auto.setRegTime(now.format(format));
         autoService.addAuto(auto, client);
+        historyService.addStory(client.getId(), auto);
         redirectAttributes.addFlashAttribute("message", "msg.auto.create.success");
         redirectAttributes.addFlashAttribute("plateNr", auto.getPlateNr().toUpperCase());
         return "redirect:/autos";
@@ -73,6 +70,7 @@ public class AutoController {
     public String updateAuto(@PathVariable() String id, Auto auto, RedirectAttributes redirectAttributes) {
 
         auto.setPlateNr(id);
+        historyService.update(auto);
         autoService.saveAuto(auto);
         redirectAttributes.addFlashAttribute("message", "msg.auto.update.success");
         redirectAttributes.addFlashAttribute("plateNr", id.toUpperCase());
@@ -84,6 +82,7 @@ public class AutoController {
 
         auto.setFixed(true);
 //        auto.setCosts();
+        historyService.update(auto);
         redirectAttributes.addFlashAttribute("message", "msg.auto.update.success");
         redirectAttributes.addFlashAttribute("plateNr", auto.getPlateNr().toUpperCase());
         return "redirect:/autos";
@@ -92,6 +91,7 @@ public class AutoController {
     @PostMapping("/reclaim/{id}")
     public String reclaimAuto(@PathVariable String id, RedirectAttributes redirectAttributes) {
 
+        historyService.update(autoService.getAutoById(id));
         autoService.reclaimAuto(id);
         redirectAttributes.addFlashAttribute("message", "msg.auto.reclaim.success");
         redirectAttributes.addFlashAttribute("plateNr", id.toUpperCase());

@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @AllArgsConstructor
 @Service
 public class AutoService {
@@ -25,6 +28,10 @@ public class AutoService {
     }
 
     public void addAuto(Auto auto, Client client) {
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        auto.setRegTime(now.format(format));
         auto.setClient(client);
         autoRepository.save(auto);
     }
