@@ -3,6 +3,7 @@ package lt.codeacademy.springautoservisas.services;
 import lombok.AllArgsConstructor;
 import lt.codeacademy.springautoservisas.entities.Auto;
 import lt.codeacademy.springautoservisas.entities.Client;
+import lt.codeacademy.springautoservisas.exceptions.AutoNotFoundException;
 import lt.codeacademy.springautoservisas.repos.AutoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +38,8 @@ public class AutoService {
     }
 
     public Auto getAutoById(String plateNr) {
-        return autoRepository.findAutoByPlateNr(plateNr);
+        return autoRepository.findById(plateNr)
+                .orElseThrow(() -> new AutoNotFoundException("msg.auto.not.found", plateNr));
     }
 
     public void saveAuto(Auto auto) {
@@ -48,5 +50,4 @@ public class AutoService {
 
         autoRepository.reclaimAuto(plateNr);
     }
-
 }
