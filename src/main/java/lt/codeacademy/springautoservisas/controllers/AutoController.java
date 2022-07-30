@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lt.codeacademy.springautoservisas.CompanyInfo;
 import lt.codeacademy.springautoservisas.entities.Auto;
 import lt.codeacademy.springautoservisas.entities.Client;
+import lt.codeacademy.springautoservisas.exceptions.AutoNotFoundException;
 import lt.codeacademy.springautoservisas.services.AutoService;
 import lt.codeacademy.springautoservisas.services.ClientService;
 import lt.codeacademy.springautoservisas.services.HistoryService;
@@ -104,5 +105,15 @@ public class AutoController {
         redirectAttributes.addFlashAttribute("message", "msg.auto.reclaim.success");
         redirectAttributes.addFlashAttribute("plateNr", id.toUpperCase());
         return "redirect:/autos";
+    }
+
+
+    @ExceptionHandler(AutoNotFoundException.class)
+    public String autoNotFound(AutoNotFoundException e, Model model) {
+
+        model.addAttribute("messageCode", e.getMessage());
+        model.addAttribute("id", e.getAutoId());
+
+        return "error";
     }
 }
