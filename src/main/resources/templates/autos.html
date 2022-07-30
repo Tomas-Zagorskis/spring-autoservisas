@@ -6,6 +6,7 @@
 
 <div id="main" class="d-flex flex-column gap-2 align-items-center">
     <div th:replace="fragments/common :: successMsg(${message}, ${plateNr})"></div>
+    <div th:replace="fragments/common :: failMsg(${failMessage})"></div>
     <a th:href="@{/autos/new}" class="align-self-start cool-link mt-3">
         <h5 th:text="|+ #{createNew} #{newAuto}|">Create New Client</h5>
     </a>
@@ -17,6 +18,9 @@
         <a th:replace="fragments/common :: sortIgnCase(${autos}, 'model')"></a>
         <a th:replace="fragments/common :: sort(${autos}, 'year')"></a>
         <a th:replace="fragments/common :: sortIgnCase(${autos}, 'client.surname')"></a>
+    </div>
+    <div th:if="${autos.empty}">
+        <h2 th:text="#{empty}"></h2>
     </div>
     <div th:if="${!autos.empty}"
          th:classappend="${autos.totalPages < 2 ? 'mb-5' : ''}"
