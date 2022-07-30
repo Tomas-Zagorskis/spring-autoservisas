@@ -6,6 +6,11 @@
      th:if="${message} ne null">
     <span th:text="#{${message}(${arg})}" class="alert alert-success mt-2 disappear" role="alert"></span>
 </div>
+<!--Fail msg-->
+<div th:fragment="failMsg(message)"
+     th:if="${message} ne null">
+    <span th:text="#{${message}}" class="alert alert-danger mt-2 disappear" role="alert"></span>
+</div>
 <!--Sort fragment-->
 <a th:fragment="sortIgnCase(obj, string)"
    th:with="ascending=${obj.sort.getOrderFor(string)?.direction?.name() eq 'ASC'}"
@@ -43,75 +48,4 @@
          class="total-text"></div>
 </div>
 
-<!--FOOTER FRAGMENT-->
-<footer th:fragment="footer" class="footer bg-dark flex-shrink-0">
-    <div class="text-center text-lg-start text-white">
-        <div class="pb-0">
-            <section class="container">
-                <div class="row">
-                    <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mt-3">
-                        <h6 th:text="#{index.title}" class="text-uppercase mb-4 font-weight-bold">
-                            QFix - Autoservice
-                        </h6>
-                        <p>
-                            Donec posuere, mauris sed vehicula hendrerit, magna ligula tincidunt leo, eget fermentum
-                            tellus
-                            tortor sit amet magna. Pellentesque ullamcorper scelerisque erat, ut pellentesque leo rutrum
-                            eget. Phasellus quis lacinia tortor. Proin hendrerit dignissim lectus. Curabitur cursus at
-                            tortor
-                            et tristique. Suspendisse viverra urna at mi efficitur, ac porttitor felis congue. Maecenas
-                            euismod
-                            blandit felis ullamcorper condimentum. Proin elementum iaculis nunc, eget vulputate ligula
-                            iaculis eget.
-                        </p>
-                    </div>
-                    <hr class="w-100 clearfix d-md-none"/>
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-                        <h6 th:text="#{contact}" class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-                        <div class="company-info">
-                            <i class="fas fa-home mr-3"></i>
-                            <p th:text="${companyInfo.address}"></p>
-                        </div>
-                        <div class="company-info">
-                            <i class="fas fa-envelope mr-3"></i>
-                            <p th:text="${companyInfo.email}"></p>
-                        </div>
-                        <div class="company-info">
-                            <i class="fas fa-phone mr-3"></i>
-                            <p th:text="${companyInfo.phone}"></p>
-                        </div>
-                        <div class="company-info">
-                            <i class="fas fa-print mr-3"></i>
-                            <p th:text="${companyInfo.fax}"></p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <hr>
-            <section class="container pt-0">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-7 col-lg-8 text-center text-md-start">
-                        <div class="p-3">
-                            © 2022 Copyright
-                        </div>
-                    </div>
-                    <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
-                        <a class="btn btn-outline-light btn-floating m-1 rounded-circle px-3" role="button">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button">
-                            <i class="fab fa-google"></i>
-                        </a>
-                        <a class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-</footer>
 </html>
