@@ -9,9 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
-public interface AutoRepository extends JpaRepository<Auto, UUID> {
+public interface AutoRepository extends JpaRepository<Auto, String> {
 
 
         @Query("select a from Auto a where lower(a.brand) like lower(concat('%',:keyword,'%'))" +
@@ -19,8 +17,6 @@ public interface AutoRepository extends JpaRepository<Auto, UUID> {
             " or lower(a.plateNr) like lower(concat('%',:keyword,'%'))")
     Page<Auto> findByKeyword(Pageable pageable, @Param("keyword") String keyword);
 
-
-    Auto findAutoByPlateNr(String id);
 
     @Modifying
     @Transactional
