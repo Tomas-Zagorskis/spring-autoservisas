@@ -123,6 +123,14 @@ form label, h3 {
         background-position: 0% 50%;
     }
 }
+.clr-primary {
+    background-color: var(--clr-accent);
+    color: #fff;
+}
+.clr-primary:hover, .clr-primary:focus {
+    background-color: var(--clr-accent-light);
+    color: #fff;
+}
 .company-info > p {
     display: inline-block;
 }

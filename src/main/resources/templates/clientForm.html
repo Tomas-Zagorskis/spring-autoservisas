@@ -54,16 +54,11 @@
                 </div>
                 <div class="text-center mt-3">
                     <button th:text="#{save}" type="submit" class="btn btn-primary px-5 m-2">Save</button>
-                    <button th:text="#{cancel}" type="button" class="btn btn-secondary px-5 m-2" onclick="cancelForm()">Cancel</button>
+                    <a th:text="#{cancel}" th:href="@{/clients}" type="button" class="btn clr-primary px-5 m-2">Cancel</a>
                 </div>
             </form>
         </div>
     </div>
-<script type="text/javascript">
-    function cancelForm() {
-        window.location = "[[@{/clients}]]";
-    }
-</script>
 </div>
 </body>
 </html>

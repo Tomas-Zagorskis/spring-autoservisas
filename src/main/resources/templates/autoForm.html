@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="fragments/layout(title=#{index.title}, search=@{/autos}, content=~{:: #main})">
+      th:replace="fragments/layout(title=#{auto.form.title}, search=@{/autos}, content=~{:: #main})">
 
 <body class="d-flex flex-column">
 <div id="main">
@@ -12,10 +12,9 @@
                 <div th:if="*{regTime ne null}" class="row mb-2 form-group">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label th:text="#{regTime}" for="regTime">Brand</label>
+                            <label th:text="|#{regTime}: *{regTime}|" for="regTime">Brand</label>
                             <input th:field="*{regTime}" type="text" class="form-control"
-                                   th:placeholder="#{*{regTime}}"
-                                   id="regTime">
+                                   hidden id="regTime">
                         </div>
                     </div>
                 </div>
@@ -111,19 +110,14 @@
                     </div>
                 </div>
                 <div class="text-center mt-3">
-                    <button th:text="#{save}" type="submit" class="btn btn-primary px-5 m-2">Save</button>
-                    <button th:text="#{cancel}" type="button" class="btn btn-secondary px-5 m-2" onclick="cancelForm()">
+                    <button th:text="#{save}" type="submit" class="btn clr-primary px-5 m-2">Save</button>
+                    <a th:text="#{cancel}" th:href="@{/autos}" type="button" class="btn btn-secondary px-5 m-2">
                         Cancel
-                    </button>
+                    </a>
                 </div>
             </form>
         </div>
     </div>
-    <script type="text/javascript">
-        function cancelForm() {
-            window.location = "[[@{/autos}]]";
-        }
-    </script>
 </div>
 </body>
 </html>
