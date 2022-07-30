@@ -89,21 +89,17 @@ public class AutoController {
         return "redirect:/autos";
     }
 
-    @PostMapping
-    public String setFixedAuto(Auto auto, RedirectAttributes redirectAttributes) {
-
-        auto.setFixed(true);
-//        auto.setCosts();
-        historyService.update(auto);
-        redirectAttributes.addFlashAttribute("message", "msg.auto.update.success");
-        redirectAttributes.addFlashAttribute("plateNr", auto.getPlateNr().toUpperCase());
-        return "redirect:/autos";
-    }
 
     @PostMapping("/reclaim/{id}")
     public String reclaimAuto(@PathVariable String id, RedirectAttributes redirectAttributes) {
 
-        historyService.update(autoService.getAutoById(id));
+        Auto autoToReclaim = autoService.getAutoById(id);
+        if (!autoToReclaim.isFixed()) {
+            redirectAttributes.addFlashAttribute("failMessage", "msg.auto.reclaim.fail");
+
+            return "redirect:/autos";
+        }
+        historyService.update(autoToReclaim);
         autoService.reclaimAuto(id);
         redirectAttributes.addFlashAttribute("message", "msg.auto.reclaim.success");
         redirectAttributes.addFlashAttribute("plateNr", id.toUpperCase());
