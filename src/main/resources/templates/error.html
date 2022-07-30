@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout(title=#{error.title}, search=@{/autos}, content=~{:: #main})">
+
+<body class="d-flex flex-column">
+
+<div id="main" class="d-flex flex-column gap-2 align-items-center">
+       <h2 th:text="#{${messageCode}(${id})}"></h2>
+</div>
+</body>
+</html>
