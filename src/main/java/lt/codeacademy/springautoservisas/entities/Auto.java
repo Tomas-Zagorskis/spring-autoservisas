@@ -34,15 +34,17 @@ public class Auto implements Serializable {
 
     @Digits(integer = 4, fraction = 0)
     @Positive
-    private long year;
+    @NotBlank
+    private String year;
 
     @Size(max=255)
     private String issue;
     private boolean fixed;
 
-    @NotNull
+    @Digits(integer = 5, fraction = 2)
     @PositiveOrZero
-    private double costs;
+    @NotNull
+    private Double costs;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="client_id", nullable=false)

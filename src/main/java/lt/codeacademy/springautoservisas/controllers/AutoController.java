@@ -1,7 +1,6 @@
 package lt.codeacademy.springautoservisas.controllers;
 
 import lombok.AllArgsConstructor;
-import lt.codeacademy.springautoservisas.CompanyInfo;
 import lt.codeacademy.springautoservisas.entities.Auto;
 import lt.codeacademy.springautoservisas.entities.Client;
 import lt.codeacademy.springautoservisas.exceptions.AutoNotFoundException;
@@ -28,12 +27,6 @@ public class AutoController {
     private final AutoService autoService;
     private final ClientService clientService;
     private final HistoryService historyService;
-    private final CompanyInfo companyInfo;
-
-    @ModelAttribute("companyInfo")
-    public CompanyInfo addCompanyDataToModel() {
-        return companyInfo;
-    }
 
     @GetMapping
     public String showAutosPage(
@@ -74,14 +67,21 @@ public class AutoController {
     @GetMapping("/{id}")
     public String showAutoDetails(@PathVariable String id, Model model) {
 
+
         model.addAttribute("auto", autoService.getAutoById(id));
         model.addAttribute("clients", clientService.getClients(Pageable.unpaged()));
         return "autoForm";
     }
 
     @PostMapping("/{id}")
-    public String updateAuto(@PathVariable() String id, Auto auto, RedirectAttributes redirectAttributes) {
+    public String updateAuto(@Valid Auto auto, BindingResult errors, @PathVariable() String id,
+                             Model model, RedirectAttributes redirectAttributes) {
 
+        if (errors.hasErrors()) {
+            model.addAttribute("auto", auto);
+            model.addAttribute("clients", clientService.getClients(Pageable.unpaged()));
+            return "autoForm";
+        }
         auto.setPlateNr(id);
         historyService.update(auto);
         autoService.saveAuto(auto);
@@ -107,13 +107,12 @@ public class AutoController {
         return "redirect:/autos";
     }
 
-
     @ExceptionHandler(AutoNotFoundException.class)
     public String autoNotFound(AutoNotFoundException e, Model model) {
 
         model.addAttribute("messageCode", e.getMessage());
         model.addAttribute("id", e.getAutoId());
 
-        return "error";
+        return "error/recordNotFound";
     }
 }
