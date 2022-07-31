@@ -1,8 +1,17 @@
 package lt.codeacademy.springautoservisas.exceptions;
 
-public class UserNotFoundException extends RuntimeException {
-    public UserNotFoundException(String message) {
+import lombok.Getter;
 
-        super(message);
+import java.util.UUID;
+
+@Getter
+public class UserNotFoundException extends RuntimeException {
+
+        private final UUID userId;
+
+    public UserNotFoundException(String messageCode, UUID userId) {
+            super(messageCode);
+            this.userId = userId;
     }
 }
+
