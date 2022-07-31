@@ -1,16 +1,20 @@
 package lt.codeacademy.springautoservisas.controllers;
 
 import lombok.AllArgsConstructor;
-import lt.codeacademy.springautoservisas.CompanyInfo;
 import lt.codeacademy.springautoservisas.entities.Client;
 import lt.codeacademy.springautoservisas.services.ClientService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -19,12 +23,7 @@ import java.util.UUID;
 public class ClientController {
 
     private final ClientService clientService;
-    private final CompanyInfo companyInfo;
 
-    @ModelAttribute("companyInfo")
-    public CompanyInfo addCompanyDataToModel() {
-        return companyInfo;
-    }
 
     @GetMapping
     public String showClientsPage(
@@ -47,8 +46,12 @@ public class ClientController {
     }
 
     @PostMapping("/new")
-    public String createClient(Client client, RedirectAttributes redirectAttributes) {
+    public String createClient(@Valid Client client, BindingResult errors,
+                               RedirectAttributes redirectAttributes) {
 
+        if (errors.hasErrors()) {
+            return "clientForm";
+        }
         clientService.createClient(client);
         redirectAttributes.addFlashAttribute("message", "msg.client.create.success");
         redirectAttributes.addFlashAttribute("fullName", client.getFullName());
@@ -63,8 +66,12 @@ public class ClientController {
     }
 
     @PostMapping("/{id}")
-    public String updateClient(Client client, RedirectAttributes redirectAttributes) {
+    public String updateClient(@Valid Client client, BindingResult errors,
+                               RedirectAttributes redirectAttributes) {
 
+        if (errors.hasErrors()) {
+            return "clientForm";
+        }
         clientService.saveClient(client);
         redirectAttributes.addFlashAttribute("message", "msg.client.update.success");
         redirectAttributes.addFlashAttribute("fullName", client.getFullName());

@@ -1,60 +1,80 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="fragments/layout(title=#{index.title}, search=@{/clients}, content=~{:: #main})">
+      th:replace="fragments/layout(title=#{client.form.title}, search=@{/clients}, content=~{:: #main})">
 
 <body class="d-flex flex-column">
 <div id="main">
     <div class="row align-items-center justify-content-center">
         <div class="col-md-7 py-5">
-            <h3 class="mb-5">New Client's Form</h3>
+            <h3 th:if="${client.id eq null}" th:text="#{client.new.form.title}" class="mb-5">Register New Client</h3>
+            <h3 th:if="${client.id ne null}" th:text="#{client.edit.form.title}" class="mb-5">Edit Client</h3>
+
             <form th:object="${client}" method="POST" >
                 <div class="row mb-2">
                     <div class="col-md-6">
-                        <div class="form-group first">
-                            <label for="fname">First Name</label>
-                            <input th:field="*{name}" type="text" class="form-control" placeholder="e.g. John" id="fname">
+                        <div class="form-group">
+                            <label th:text="#{name}" for="name"></label>
+                            <input th:field="*{name}"
+                                   th:placeholder="#{placeholder.name}"
+                                   type="text" class="form-control" id="name">
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors">Name field errors</p>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group first">
-                            <label for="lname">Last Name</label>
-                            <input th:field="*{surname}" type="text" class="form-control" placeholder="e.g. Smith" id="lname">
+                        <div class="form-group">
+                            <label th:text="#{surname} " for="surname">Last Name</label>
+                            <input th:field="*{surname}"
+                                   th:placeholder="#{placeholder.surname}"
+                                   type="text" class="form-control" id="surname">
+                            <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="errors">Name field errors</p>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        <div class="form-group first">
-                            <label for="email">Email Address</label>
-                            <input th:field="*{email}" type="email" class="form-control" placeholder="e.g. john@your-domain.com" id="email">
+                        <div class="form-group">
+                            <label th:text="#{email} " for="email">Email Address</label>
+                            <input th:field="*{email}"
+                                   th:placeholder="#{placeholder.email}"
+                                   type="text" class="form-control" id="email">
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors">Name field errors</p>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-6">
-                        <div class="form-group first">
-                            <label for="phone">Phone Number</label>
-                            <input th:field="*{phoneNr}" type="text" class="form-control" placeholder="867******" id="phone">
+                        <div class="form-group">
+                            <label th:text="#{phoneNr} " for="phoneNr">Phone Number</label>
+                            <input th:field="*{phoneNr}"
+                                   th:placeholder="#{placeholder.phoneNr}"
+                                   type="text" class="form-control" id="phoneNr">
+                            <p th:if="${#fields.hasErrors('phoneNr')}" th:errors="*{phoneNr}" class="errors">Name field errors</p>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group first">
-                            <label for="city">City</label>
-                            <input th:field="*{city}" type="text" class="form-control" placeholder="e.g. Kaunas" id="city">
+                        <div class="form-group">
+                            <label th:text="#{city} " for="city">City</label>
+                            <input th:field="*{city}"
+                                   th:placeholder="#{placeholder.city}"
+                                   type="text" class="form-control" id="city">
+                            <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="errors">Name field errors</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group last mb-3">
-                            <label for="address">Address</label>
-                            <input th:field="*{address}" type="text" class="form-control" placeholder="Your Address" id="address">
+                        <div class="form-group mb-3">
+                            <label th:text="#{address} " for="address">Address</label>
+                            <input th:field="*{address}"
+                                   th:placeholder="#{placeholder.address}"
+                                   type="text" class="form-control" id="address">
+                            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="errors">Name field errors</p>
                         </div>
                     </div>
                 </div>
                 <div class="text-center mt-3">
-                    <button th:text="#{save}" type="submit" class="btn btn-primary px-5 m-2">Save</button>
-                    <a th:text="#{cancel}" th:href="@{/clients}" type="button" class="btn clr-primary px-5 m-2">Cancel</a>
+                    <button th:text="#{save}" type="submit" class="btn clr-primary px-5 m-2">Save</button>
+                    <a th:text="#{cancel}" th:href="@{/clients}" type="button" class="btn btn-secondary px-5 m-2">Cancel</a>
                 </div>
             </form>
         </div>
