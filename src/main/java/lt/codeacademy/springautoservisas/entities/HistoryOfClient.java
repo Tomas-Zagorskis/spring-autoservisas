@@ -30,7 +30,7 @@ public class HistoryOfClient implements Serializable {
     private String regTime;
     private String brand;
     private String model;
-    private long year;
+    private String year;
     private String issue;
     private boolean fixed;
     private double costs;

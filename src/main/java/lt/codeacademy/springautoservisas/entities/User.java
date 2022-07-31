@@ -1,8 +1,10 @@
 package lt.codeacademy.springautoservisas.entities;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -13,9 +15,9 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(nullable = false, unique = true, length = 20)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable = false, unique = true, length = 36)
+    @Type(type = "uuid-char")
+    private UUID id;
 
     @Column(nullable = false, unique = true, length = 20)
     private String username;

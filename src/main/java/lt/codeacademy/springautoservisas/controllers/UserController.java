@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
@@ -47,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/users/edit/{id}")
-    public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+    public String showEditForm(@PathVariable("id") UUID id, Model model, RedirectAttributes redirectAttributes) {
         try {
             User user = userService.getUser(id);
             model.addAttribute("user", user);
@@ -58,7 +59,7 @@ public class UserController {
         }
     }
     @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteUser(@PathVariable("id") UUID id, RedirectAttributes redirectAttributes) {
         try {
             userService.delete(id);
             redirectAttributes.addFlashAttribute("message", "The user ID " + id + " has been deleted.");

@@ -3,7 +3,9 @@ package lt.codeacademy.springautoservisas.repos;
 import lt.codeacademy.springautoservisas.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+import java.util.UUID;
 
-    Long countById(Integer id);
+public interface UserRepository extends JpaRepository<User, UUID> {
+
+    Long countById(UUID id);
 }

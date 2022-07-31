@@ -27,7 +27,7 @@ public class ClientService {
 
     public Client getClientById(UUID id) {
         return clientRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("No client found by id"));
+                .orElseThrow(() -> new UserNotFoundException("No client found by id ", id));
     }
 
     public void saveClient(Client client) {
