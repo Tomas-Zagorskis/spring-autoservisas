@@ -16,6 +16,9 @@ public class SecurityConfiguration {
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
+            .authorizeRequests()
+                .antMatchers("/console/**").permitAll()
+                .and()
             .formLogin()
                 .permitAll()
                 .loginPage("/login")
@@ -27,6 +30,8 @@ public class SecurityConfiguration {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
                 .getLogoutSuccessHandler();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
         return http.build();
     }
 
