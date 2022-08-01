@@ -2,16 +2,14 @@ package lt.codeacademy.springautoservisas.controllers;
 
 import lombok.AllArgsConstructor;
 import lt.codeacademy.springautoservisas.entities.Client;
+import lt.codeacademy.springautoservisas.exceptions.ClientNotFoundException;
 import lt.codeacademy.springautoservisas.services.ClientService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -87,4 +85,12 @@ public class ClientController {
         return "redirect:/clients";
     }
 
+    @ExceptionHandler(ClientNotFoundException.class)
+    public String clientNotFound(ClientNotFoundException e, Model model) {
+
+        model.addAttribute("messageCode", e.getMessage());
+        model.addAttribute("id", e.getClientId());
+
+        return "error/recordNotFound";
+    }
 }

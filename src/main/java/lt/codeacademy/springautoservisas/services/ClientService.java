@@ -2,7 +2,7 @@ package lt.codeacademy.springautoservisas.services;
 
 import lombok.AllArgsConstructor;
 import lt.codeacademy.springautoservisas.entities.Client;
-import lt.codeacademy.springautoservisas.exceptions.UserNotFoundException;
+import lt.codeacademy.springautoservisas.exceptions.ClientNotFoundException;
 import lt.codeacademy.springautoservisas.repos.ClientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +27,7 @@ public class ClientService {
 
     public Client getClientById(UUID id) {
         return clientRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("No client found by id ", id));
+                .orElseThrow(() -> new ClientNotFoundException("msg.client.not.found", id));
     }
 
     public void saveClient(Client client) {
