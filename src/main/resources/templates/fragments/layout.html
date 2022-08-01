@@ -5,7 +5,7 @@
     <title th:text="${title}">Title</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" th:href="@{/style/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="shortcut icon" th:href="@{/images/logo icon.png}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
@@ -41,7 +41,8 @@
                            class="nav-link" href="#">Clients</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a th:text="#{lang}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                        <a th:text="#{lang}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                           data-bs-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">Language</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a th:href="@{''(lang='en')}" class="dropdown-item d-flex align-items-center gap-2">
@@ -53,7 +54,9 @@
                 </ul>
                 <ul class="d-flex flex-column justify-content-between p-0 m-0 flex-md-row">
                     <li>
-                        <a th:text="#{logout}" th:href="@{/logout}" class="nav-link login">Logout</a>
+                        <form th:action="@{/logout}" method="post">
+                            <button th:text="#{logout}"  type="submit" class="nav-link login">Logout</button>
+                        </form>
                     </li>
                     <li>
                         <form th:action="${search}" class="form-inline my-2 my-md-0">
