@@ -1,4 +1,4 @@
-package lt.codeacademy.springautoservisas;
+package lt.codeacademy.springautoservisas.entities;
 
 import lombok.Getter;
 import lombok.Setter;

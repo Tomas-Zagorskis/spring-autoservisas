@@ -1,6 +1,7 @@
-package lt.codeacademy.springautoservisas;
+package lt.codeacademy.springautoservisas.advice;
 
 import lombok.AllArgsConstructor;
+import lt.codeacademy.springautoservisas.entities.CompanyInfo;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
