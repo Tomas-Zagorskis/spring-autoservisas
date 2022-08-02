@@ -7,9 +7,9 @@ import java.util.UUID;
 @Getter
 public class UserNotFoundException extends RuntimeException {
 
-        private final UUID userId;
+        private final String userId;
 
-    public UserNotFoundException(String messageCode, UUID userId) {
+    public UserNotFoundException(String messageCode, String userId) {
             super(messageCode);
             this.userId = userId;
     }

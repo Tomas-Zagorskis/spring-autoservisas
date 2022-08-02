@@ -2,6 +2,7 @@ package lt.codeacademy.springautoservisas.controllers;
 
 import lombok.AllArgsConstructor;
 import lt.codeacademy.springautoservisas.entities.User;
+import lt.codeacademy.springautoservisas.exceptions.AutoNotFoundException;
 import lt.codeacademy.springautoservisas.exceptions.UserNotFoundException;
 import lt.codeacademy.springautoservisas.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -14,32 +15,25 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping
+@RequestMapping("/private/users")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/login")
-    public String showLoginPage() {
-
-        return "login";
-    }
-
-
-    @GetMapping("/users")
+    @GetMapping
     public String showUserList(Model model) {
         List<User> listUsers = userService.listAll();
         model.addAttribute("listUsers", listUsers);
         return "users";
     }
 
-    @GetMapping("/users/new")
+    @GetMapping("/new")
     public String showNewForm(Model model) {
         model.addAttribute("user", new User());
         return "user_form";
     }
 
-    @PostMapping("/users/save")
+    @PostMapping("/save")
     public String saveUser(User user, RedirectAttributes redirectAttributes) {
 
         userService.saveUser(user);
@@ -47,8 +41,8 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/edit/{id}")
-    public String showEditForm(@PathVariable("id") UUID id, Model model, RedirectAttributes redirectAttributes) {
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") String id, Model model, RedirectAttributes redirectAttributes) {
         try {
             User user = userService.getUser(id);
             model.addAttribute("user", user);
@@ -58,8 +52,8 @@ public class UserController {
             return "redirect:/users";
         }
     }
-    @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable("id") UUID id, RedirectAttributes redirectAttributes) {
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") String id, RedirectAttributes redirectAttributes) {
         try {
             userService.delete(id);
             redirectAttributes.addFlashAttribute("message", "The user ID " + id + " has been deleted.");
@@ -69,5 +63,12 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public String userNotFound(UserNotFoundException e, Model model) {
 
+        model.addAttribute("messageCode", e.getMessage());
+        model.addAttribute("id", e.getUserId());
+
+        return "error/recordNotFound";
+    }
 }
