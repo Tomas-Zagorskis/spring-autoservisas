@@ -1,44 +1,68 @@
 package lt.codeacademy.springautoservisas.configurations;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class SecurityConfiguration {
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+)
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Autowired
+    private H2ConsoleProperties h2ConsoleProperties;
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                .antMatchers("/login/**", "/").permitAll()
+                .antMatchers("/private/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
-            .authorizeRequests()
-                .antMatchers("/console/**").permitAll()
-                .and()
-            .formLogin()
+                .formLogin()
                 .permitAll()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/autos")
+                .defaultSuccessUrl("/")
                 .failureUrl("/login?error=login.failed")
                 .and()
-            .logout()
+                .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
-                .getLogoutSuccessHandler();
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-        return http.build();
+                .logoutSuccessUrl("/login?logout");
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
+    @Override
+    public void configure(WebSecurity web) {
 
-        return (web) -> web.ignoring()
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        web.ignoring()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .antMatchers(h2ConsoleProperties.getPath() + "/**");
     }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        PasswordEncoder encoder = PasswordEncoderFactories
+                .createDelegatingPasswordEncoder();
+
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(encoder);
+    }
+
 }

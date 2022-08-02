@@ -1,28 +1,21 @@
 package lt.codeacademy.springautoservisas.entities;
 
-import lombok.*;
-import org.hibernate.annotations.Type;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.util.Set;
 
 @Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
-    @Column(nullable = false, unique = true, length = 36)
-    @Type(type = "uuid-char")
-    private UUID id;
-
-    @Column(nullable = false, unique = true, length = 20)
     private String username;
 
-    @Column(length = 20)
     private String password;
 
     @Column(nullable = false, unique = true, length = 45)
@@ -35,4 +28,32 @@ public class User {
     private String lastName;
 
     private int age;
+
+    @ManyToMany
+    private Set<Role> roles;
+
+    @Override
+    public Set<Role> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
