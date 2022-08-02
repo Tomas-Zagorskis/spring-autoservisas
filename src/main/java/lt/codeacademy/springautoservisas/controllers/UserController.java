@@ -38,7 +38,7 @@ public class UserController {
 
         userService.saveUser(user);
         redirectAttributes.addFlashAttribute("message", "The user has been saved successfully!");
-        return "redirect:/users";
+        return "redirect:/private/users";
     }
 
     @GetMapping("/edit/{id}")
@@ -49,7 +49,7 @@ public class UserController {
             return "user_form";
         } catch (UserNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
-            return "redirect:/users";
+            return "redirect:/private/users";
         }
     }
     @GetMapping("/delete/{id}")
@@ -60,7 +60,7 @@ public class UserController {
         } catch (UserNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/users";
+        return "redirect:/private/users";
     }
 
     @ExceptionHandler(UserNotFoundException.class)

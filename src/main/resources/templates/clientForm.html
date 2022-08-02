@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="fragments/layout(title=#{client.form.title}, search=@{/clients}, content=~{:: #main})">
+      th:replace="fragments/layout(title=#{client.form.title}, search=@{/private/clients}, content=~{:: #main})">
 
 <body class="d-flex flex-column">
 <div id="main">
@@ -9,7 +9,7 @@
             <h3 th:if="${client.id eq null}" th:text="#{client.new.form.title}" class="mb-5">Register New Client</h3>
             <h3 th:if="${client.id ne null}" th:text="#{client.edit.form.title}" class="mb-5">Edit Client</h3>
 
-            <form th:object="${client}" method="POST" >
+            <form th:action="@{''}" th:object="${client}" method="POST" >
                 <div class="row mb-2">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -74,7 +74,7 @@
                 </div>
                 <div class="text-center mt-3">
                     <button th:text="#{save}" type="submit" class="btn clr-primary px-5 m-2">Save</button>
-                    <a th:text="#{cancel}" th:href="@{/clients}" type="button" class="btn btn-secondary px-5 m-2">Cancel</a>
+                    <a th:text="#{cancel}" th:href="@{/private/clients}" type="button" class="btn btn-secondary px-5 m-2">Cancel</a>
                 </div>
             </form>
         </div>

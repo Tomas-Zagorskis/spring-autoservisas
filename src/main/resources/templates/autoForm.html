@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="fragments/layout(title=#{auto.form.title}, search=@{/autos}, content=~{:: #main})">
+      th:replace="fragments/layout(title=#{auto.form.title}, search=@{/private/autos}, content=~{:: #main})">
 
 <body class="d-flex flex-column">
 <div id="main">
@@ -8,7 +8,7 @@
         <div class="col-md-7 py-5">
             <h3 th:if="${auto.plateNr eq null}" th:text="#{auto.new.form.title}" class="mb-5">Register New Auto</h3>
             <h3 th:if="${auto.plateNr ne null}" th:text="#{auto.edit.form.title}" class="mb-5">Edit Auto</h3>
-            <form th:object="${auto}" method="POST">
+            <form th:action="@{''}" th:object="${auto}" method="POST">
                 <div th:if="*{regTime ne null}" class="row mb-2 form-group">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <a th:href="@{/clients/new}" class="cool-link mt-4">
+                            <a th:href="@{/private/clients/new}" class="cool-link mt-4">
                                 <span th:text="|+ #{createNew} #{newClient}|">Create New Client</span>
                             </a>
                         </div>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="text-center mt-3">
                     <button th:text="#{save}" type="submit" class="btn clr-primary px-5 m-2">Save</button>
-                    <a th:text="#{cancel}" th:href="@{/autos}" type="button" class="btn btn-secondary px-5 m-2">
+                    <a th:text="#{cancel}" th:href="@{/private/autos}" type="button" class="btn btn-secondary px-5 m-2">
                         Cancel
                     </a>
                 </div>

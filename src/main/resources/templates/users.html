@@ -11,7 +11,7 @@
         <h2>Manage Users</h2>
     </div>
     <div class="m-3">
-        <a th:href="@{/users/new}" class="h4">Add New User</a>
+        <a th:href="@{/private/users/new}" class="h4">Add New User</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -37,8 +37,8 @@
                     <td th:text="${user.lastName}"></td>
                     <td th:text="${user.age}"></td>
                     <td>
-                        <a th:href="@{/users/edit/{id}(id=${user.username})}" class="btn btn-primary mx-3">Edit</a>
-                        <a th:href="@{/users/delete/{id}(id=${user.username})}" class="btn btn-primary">Delete</a>
+                        <a th:href="@{/private/users/edit/{id}(id=${user.username})}" class="btn btn-primary mx-3">Edit</a>
+                        <a th:href="@{/private/users/delete/{id}(id=${user.username})}" class="btn btn-primary">Delete</a>
                     </td>
                 </tr>
             </th:block>

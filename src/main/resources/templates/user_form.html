@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="text-center">
         <h2 class="m-5">Add New User</h2>
-        <form th:action="@{/users/save}" method="post" th:object="${user}"
+        <form th:action="@{''}" method="post" th:object="${user}"
               style="max-width: 500px; margin: 0 auto;" class="text-start">
             <div class="border border-secondary rounded p-3">
                 <div class="form-group">
@@ -68,7 +68,7 @@
 </div>
 <script type="text/javascript">
     function cancelForm() {
-        window.location = "[[@{/users}]]";
+        window.location = "[[@{/private/users}]]";
     }
 </script>
 </body>

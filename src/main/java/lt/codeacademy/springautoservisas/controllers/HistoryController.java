@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/clients/history")
+@RequestMapping("/private/clients/history")
 public class HistoryController {
 
     private HistoryService historyService;

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="fragments/layout(title=#{index.title}, search=@{/clients}, content=~{:: #main})">
+      th:replace="fragments/layout(title=#{index.title}, search=@{/private/clients}, content=~{:: #main})">
 
 <body class="d-flex flex-column">
 
 <div id="main" class="d-flex flex-column gap-2 align-items-center">
 
     <div th:replace="fragments/common :: successMsg(${message}, ${fullName})"></div>
-    <a th:href="@{/clients/new}" class="align-self-start cool-link mt-3">
+    <a th:href="@{/private/clients/new}" class="align-self-start cool-link mt-3">
         <h5 th:text="|+ #{createNew} #{newClient}|">Create New Client</h5>
     </a>
     <div th:if="${clients.empty}">
@@ -48,10 +48,10 @@
             <td th:text="${client.phoneNr}"></td>
             <td th:text="${client.city}"></td>
             <td th:text="${client.address}"></td>
-            <td><a th:href="@{/clients/history/{id}(id=${client.id})}" class="btn-pill">Autos</a></td>
+            <td><a th:href="@{/private/clients/history/{id}(id=${client.id})}" class="btn-pill">Autos</a></td>
             <td>
-                <a th:href="@{/clients/{id}(id=${client.id})}" th:text="#{edit}" class="cool-link">Edit</a>
-                <form th:action="@{/clients/delete/{id}(id=${client.id})}" method="post">
+                <a th:href="@{/private/clients/{id}(id=${client.id})}" th:text="#{edit}" class="cool-link">Edit</a>
+                <form th:action="@{/private/clients/delete/{id}(id=${client.id})}" method="post">
                     <button th:text="#{delete}" class="cool-link">Delete</button>
                 </form>
             </td>

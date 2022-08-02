@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/clients")
+@RequestMapping("/private/clients")
 public class ClientController {
 
     private final ClientService clientService;
@@ -53,7 +53,7 @@ public class ClientController {
         clientService.createClient(client);
         redirectAttributes.addFlashAttribute("message", "msg.client.create.success");
         redirectAttributes.addFlashAttribute("fullName", client.getFullName());
-        return "redirect:/clients";
+        return "redirect:/private/clients";
     }
 
     @GetMapping("/{id}")
@@ -73,7 +73,7 @@ public class ClientController {
         clientService.saveClient(client);
         redirectAttributes.addFlashAttribute("message", "msg.client.update.success");
         redirectAttributes.addFlashAttribute("fullName", client.getFullName());
-        return "redirect:/clients";
+        return "redirect:/private/clients";
     }
 
     @PostMapping("/delete/{id}")
@@ -82,7 +82,7 @@ public class ClientController {
         redirectAttributes.addFlashAttribute("fullName", clientService.getClientById(id).getFullName());
         clientService.removeClient(id);
         redirectAttributes.addFlashAttribute("message", "msg.client.delete.success");
-        return "redirect:/clients";
+        return "redirect:/private/clients";
     }
 
     @ExceptionHandler(ClientNotFoundException.class)

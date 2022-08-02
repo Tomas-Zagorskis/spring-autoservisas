@@ -21,7 +21,7 @@ import javax.validation.Valid;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/autos")
+@RequestMapping("/private/autos")
 public class AutoController {
 
     private final AutoService autoService;
@@ -61,7 +61,7 @@ public class AutoController {
         historyService.addStory(client.getId(), auto);
         redirectAttributes.addFlashAttribute("message", "msg.auto.create.success");
         redirectAttributes.addFlashAttribute("plateNr", auto.getPlateNr().toUpperCase());
-        return "redirect:/autos";
+        return "redirect:/private/autos";
     }
 
     @GetMapping("/{id}")
@@ -87,7 +87,7 @@ public class AutoController {
         autoService.saveAuto(auto);
         redirectAttributes.addFlashAttribute("message", "msg.auto.update.success");
         redirectAttributes.addFlashAttribute("plateNr", id.toUpperCase());
-        return "redirect:/autos";
+        return "redirect:/private/autos";
     }
 
 
@@ -98,13 +98,13 @@ public class AutoController {
         if (!autoToReclaim.isFixed()) {
             redirectAttributes.addFlashAttribute("failMessage", "msg.auto.reclaim.fail");
 
-            return "redirect:/autos";
+            return "redirect:/private/autos";
         }
         historyService.update(autoToReclaim);
         autoService.reclaimAuto(id);
         redirectAttributes.addFlashAttribute("message", "msg.auto.reclaim.success");
         redirectAttributes.addFlashAttribute("plateNr", id.toUpperCase());
-        return "redirect:/autos";
+        return "redirect:/private/autos";
     }
 
     @ExceptionHandler(AutoNotFoundException.class)
