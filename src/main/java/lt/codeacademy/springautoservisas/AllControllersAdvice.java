@@ -5,15 +5,17 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @AllArgsConstructor
 @ControllerAdvice
 public class AllControllersAdvice {
 
     private final CompanyInfo companyInfo;
 
-    @ModelAttribute("companyInfo")
-    public CompanyInfo addCompanyDataToModel() {
-        return companyInfo;
+    @ModelAttribute
+    public void addCompanyDataToModel(HttpServletRequest request) {
+        request.setAttribute("companyInfo", companyInfo);
     }
 
     @InitBinder
