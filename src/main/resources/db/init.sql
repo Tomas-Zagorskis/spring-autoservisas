@@ -1,9 +1,23 @@
-INSERT INTO USERS (id, username, password, email, first_name, last_name, age) VALUES
-    ('111d759c-133d-4ef3-b621-c271804da7b1','admin','admin','admin@gmail.com','admin','admin',66),
-    ('222d759c-133d-4ef3-b621-c271804da7b1','register1','reg123','reg@gmail.com','Kristina','Pavardene',45),
-    ('333d759c-133d-4ef3-b621-c271804da7b1','Petras1985','petriukas','mech@gmail.com','Petras','Petraitis',37),
-    ('444d759c-133d-4ef3-b621-c271804da7b1','Jonasmech','mechanikas','mech2@gmail.com','Jonas','Jonaitis',26),
-    ('555d759c-133d-4ef3-b621-c271804da7b1','register2','123reg123','reg2@gmail.com','Tadas','Zukauskas',30);
+INSERT INTO USERS ( username, password, email, first_name, last_name, age) VALUES
+    ('admin','{bcrypt}$2a$12$V7S9QCnO3IhLlND9GxanyO0UMwqx7maYbfzXBCk3wQ.qW4iyI5ZnO','admin@gmail.com','admin','admin',66), /* password=admin */
+    ('register1','{bcrypt}$2a$12$1zuexKUVmp3bGJjlSOUNROXkGKG9RmPP7mGRUXVeODsx3w.HhUazG','reg@gmail.com','Kristina','Pavardene',45),/* password=reg123 */
+    ('mechanic1','{bcrypt}$2a$12$Lv//FsGpKB1pz4/Pm./ZDechG6b/cjz5ghasd.m1IBkL0liUGz1AK','mech@gmail.com','Petras','Petraitis',37),/* password=mech123 */
+    ('mechanic2','{bcrypt}$2a$12$GkANluRVRMVd4VZt5ceTIu.TtoT7mOGMqxtWM2yW1o/jZLSAb9Xpa','mech2@gmail.com','Jonas','Jonaitis',26),/* password=mech456 */
+    ('register2','{bcrypt}$2a$12$GuZBVka1ycEa5J.kl5I5v.21oeNqiT44RBhRBOCOlkQ2sPX4TwE6W','reg2@gmail.com','Tadas','Zukauskas',30);/* password=reg456 */
+
+INSERT INTO Role VALUES
+     ('REGISTER'),
+     ('MECHANIC'),
+     ('ADMIN');
+
+INSERT INTO users_roles VALUES
+    ('register1', 'REGISTER'),
+    ('register2', 'REGISTER'),
+    ('mechanic1', 'MECHANIC'),
+    ('mechanic2', 'MECHANIC'),
+    ('admin', 'REGISTER'),
+    ('admin', 'MECHANIC'),
+    ('admin', 'ADMIN');
 
 INSERT INTO CLIENTS (id, name, surname, email, phone_nr, city, address) VALUES
     ('474d759c-133d-4ef3-b621-c271804da7b1','Petras','Petraitis','admin@gmail.com','8765842135','Kaunas','Rytu 5'),
