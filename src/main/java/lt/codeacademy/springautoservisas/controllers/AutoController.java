@@ -6,7 +6,7 @@ import lt.codeacademy.springautoservisas.entities.Client;
 import lt.codeacademy.springautoservisas.exceptions.AutoNotFoundException;
 import lt.codeacademy.springautoservisas.services.AutoService;
 import lt.codeacademy.springautoservisas.services.ClientService;
-import lt.codeacademy.springautoservisas.services.HistoryService;
+import lt.codeacademy.springautoservisas.services.RecordService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
@@ -26,7 +26,7 @@ public class AutoController {
 
     private final AutoService autoService;
     private final ClientService clientService;
-    private final HistoryService historyService;
+    private final RecordService historyService;
 
     @GetMapping
     public String showAutosPage(
@@ -58,7 +58,7 @@ public class AutoController {
             return "autoForm";
         }
         autoService.addAuto(auto, client);
-        historyService.addStory(client.getId(), auto);
+        historyService.addRecord(client.getId(), auto);
         redirectAttributes.addFlashAttribute("message", "msg.auto.create.success");
         redirectAttributes.addFlashAttribute("plateNr", auto.getPlateNr().toUpperCase());
         return "redirect:/private/autos";
