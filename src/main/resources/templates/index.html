@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout(title=#{about.us.title}, search=@{/private/autos}, content=~{:: #main})">
+
+<body class="d-flex flex-column">
+
+<section id="main" class="d-flex flex-column m-5 gap-5 justify-content-evenly align-items-center">
+        <h2 th:text="#{about.us.title}"></h2>
+        <img th:src="@{/images/img.png}" class="about-us-img">
+        <article>
+            <p th:text="#{about}"></p>
+            <p th:text="#{about}"></p>
+        </article>
+
+</section>
+</body>
+</html>
