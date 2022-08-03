@@ -6,6 +6,8 @@ import lt.codeacademy.springautoservisas.exceptions.ClientNotFoundException;
 import lt.codeacademy.springautoservisas.services.ClientService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +19,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
+@Secured("ROLE_REGISTER")
 @RequestMapping("/private/clients")
 public class ClientController {
 
@@ -76,6 +79,7 @@ public class ClientController {
         return "redirect:/private/clients";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/delete/{id}")
     public String removeClient(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
 

@@ -52,7 +52,8 @@
             <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/private/records/{id}(id=${client.id})}" class="btn-pill">Autos</a></td>
             <td>
                 <a th:href="@{/private/clients/{id}(id=${client.id})}" th:text="#{edit}" class="cool-link">Edit</a>
-                <form th:action="@{/private/clients/delete/{id}(id=${client.id})}" method="post">
+                <form sec:authorize="hasRole('ADMIN')"
+                      th:action="@{/private/clients/delete/{id}(id=${client.id})}" method="post">
                     <button th:text="#{delete}" class="cool-link">Delete</button>
                 </form>
             </td>

@@ -34,20 +34,25 @@
                            th:classappend="${#httpServletRequest.requestURI eq '/' ? 'activate' : ''}"
                            class="nav-link">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li sec:authorize="authenticated" class="nav-item">
                         <a th:text="#{autos}" th:href="@{/private/autos}"
                            th:classappend="${#httpServletRequest.requestURI.startsWith('/private/autos') ? 'activate' : ''}"
                            class="nav-link">Autos</a>
                     </li>
-                    <li class="nav-item">
+                    <li sec:authorize="hasAnyRole('ADMIN', 'REGISTER')" class="nav-item">
                         <a th:text="#{clients}" th:href="@{/private/clients}"
                            th:classappend="${#httpServletRequest.requestURI.startsWith('/private/clients') ? 'activate' : ''}"
-                           class="nav-link" href="#">Clients</a>
+                           class="nav-link">Clients</a>
                     </li>
                     <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                         <a th:text="#{records}" th:href="@{/private/records}"
                            th:classappend="${#httpServletRequest.requestURI.startsWith('/private/records') ? 'activate' : ''}"
-                           class="nav-link" href="#">Records</a>
+                           class="nav-link" >Records</a>
+                    </li>
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                        <a th:text="#{users}" th:href="@{/private/users}"
+                           th:classappend="${#httpServletRequest.requestURI.startsWith('/private/users') ? 'activate' : ''}"
+                           class="nav-link">users</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a th:text="#{lang}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -63,11 +68,13 @@
                 </ul>
                 <ul class="d-flex flex-column justify-content-between p-0 m-0 flex-md-row">
                     <li>
-                        <form th:action="@{/logout}" method="post">
+                        <form sec:authorize="authenticated" th:action="@{/logout}" method="post">
                             <button th:text="#{logout}"  type="submit" class="nav-link login">Logout</button>
                         </form>
+                        <a sec:authorize="anonymous" th:text="#{login}" th:href="@{/login}"
+                           class="nav-link login">Login</a>
                     </li>
-                    <li>
+                    <li sec:authorize="authenticated">
                         <form th:action="${search}" class="form-inline my-2 my-md-0">
                             <input th:value="${param.keyword}" th:placeholder="#{search}" name="keyword"
                                    class="form-control" type="text" aria-label="Search">

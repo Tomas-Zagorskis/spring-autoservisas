@@ -10,6 +10,8 @@ import lt.codeacademy.springautoservisas.services.RecordService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +43,7 @@ public class AutoController {
         return "autos";
     }
 
+    @Secured("ROLE_REGISTER")
     @GetMapping("/new")
     public String showNewAutoForm(Model model) {
 
@@ -49,6 +52,7 @@ public class AutoController {
         return "autoForm";
     }
 
+    @PreAuthorize("hasRole('REGISTER')")
     @PostMapping("/new")
     public String addAuto(@Valid Auto auto, BindingResult errors, Model model,
                           Client client, RedirectAttributes redirectAttributes) {
@@ -90,7 +94,7 @@ public class AutoController {
         return "redirect:/private/autos";
     }
 
-
+    @PreAuthorize("hasRole('REGISTER')")
     @PostMapping("/reclaim/{id}")
     public String reclaimAuto(@PathVariable String id, RedirectAttributes redirectAttributes) {
 
