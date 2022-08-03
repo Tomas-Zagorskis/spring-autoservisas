@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout(title=#{client.form.title}, search=@{/private/clients}, content=~{:: #main})">
+
+<body class="d-flex flex-column">
+<div id="main">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7 py-5">
+            <h3 th:if="${user.username eq null}" th:text="#{user.new.form.title}" class="mb-5">Register New Client</h3>
+            <h3 th:if="${user.username ne null}" th:text="#{user.edit.form.title}" class="mb-5">Edit Client</h3>
+
+            <form th:action="@{''}" th:object="${user}" method="POST" >
+                <div th:hidden="*{username != null}" class="row mb-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{username}" for="username"></label>
+                            <input th:field="*{username}"
+                                   th:placeholder="#{placeholder.name}"
+                                   type="text" class="form-control" id="username">
+                            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="errors">Name field errors</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{login.password} " for="password"></label>
+                            <input th:field="*{password}"
+                                   type="password" class="form-control" id="password">
+                            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors">Name field errors</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label th:text="#{email} " for="email">Email Address</label>
+                            <input th:field="*{email}"
+                                   th:placeholder="#{placeholder.email}"
+                                   type="text" class="form-control" id="email">
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors">Name field errors</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{firstName} " for="firstName"></label>
+                            <input th:field="*{firstName}"
+                                   th:placeholder="#{placeholder.name}"
+                                   type="text" class="form-control" id="firstName">
+                            <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="errors">Name field errors</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label th:text="#{lastName} " for="lastName">lastName</label>
+                            <input th:field="*{lastName}"
+                                   th:placeholder="#{placeholder.surname}"
+                                   type="text" class="form-control" id="lastName">
+                            <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="errors">Name field errors</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label th:text="#{age} " for="age">Address</label>
+                            <input th:field="*{age}"
+                                   type="number" class="form-control" id="age">
+                            <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="errors">Name field errors</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-3 white-text">
+                            <label th:text="#{roles}"></label>
+                            <input type="checkbox" name="roles"
+                                   th:each="role : ${roles}"
+                                   th:text="${role.name}"
+                                   th:value="${role.name}"
+                                   th:field="*{roles}"
+                            class="role-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button th:text="#{save}" type="submit" class="btn clr-primary px-5 m-2">Save</button>
+                    <a th:text="#{cancel}" th:href="@{/private/users}" type="button" class="btn btn-secondary px-5 m-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

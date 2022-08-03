@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -30,7 +31,7 @@ public class User implements UserDetails {
     private int age;
 
     @ManyToMany
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();;
 
     @Override
     public Set<Role> getAuthorities() {
