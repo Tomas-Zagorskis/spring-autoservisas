@@ -5,7 +5,7 @@ INSERT INTO USERS ( username, password, email, first_name, last_name, age) VALUE
     ('mechanic2','{bcrypt}$2a$12$GkANluRVRMVd4VZt5ceTIu.TtoT7mOGMqxtWM2yW1o/jZLSAb9Xpa','mech2@gmail.com','Jonas','Jonaitis',26),/* password=mech456 */
     ('register2','{bcrypt}$2a$12$GuZBVka1ycEa5J.kl5I5v.21oeNqiT44RBhRBOCOlkQ2sPX4TwE6W','reg2@gmail.com','Tadas','Zukauskas',30);/* password=reg456 */
 
-INSERT INTO Role VALUES
+INSERT INTO Roles VALUES
      ('REGISTER'),
      ('MECHANIC'),
      ('ADMIN');
