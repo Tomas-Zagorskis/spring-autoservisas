@@ -15,8 +15,8 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-@Table(name = "history")
-public class HistoryOfClient implements Serializable {
+@Table(name = "records")
+public class RecordOfService implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

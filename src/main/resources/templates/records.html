@@ -6,13 +6,13 @@
 
 <div id="main" class="d-flex flex-column gap-2 align-items-center">
 
-    <div th:if="${history.empty}">
+    <div th:if="${records.empty}">
         <h2 th:text="#{empty}"></h2>
     </div>
-    <table th:if="${!history.empty}"
-           th:classappend="${history.totalPages < 2 ? 'mb-5' : ''}"
+    <table th:if="${!records.empty}"
+           th:classappend="${records.totalPages < 2 ? 'mb-5' : ''}"
            class="table table-striped my-2">
-        <h2>History of Client</h2>
+        <h2 th:text="#{records.of.service}"></h2>
         <thead>
         <tr>
             <th th:text="#{regTime}" scope="col"></th>
@@ -25,19 +25,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="hist : ${history}">
-            <td th:text="${hist.regTime}"></td>
-            <td th:text="${hist.plateNr}"></td>
-            <td th:text="${hist.brand}"></td>
-            <td th:text="${hist.model}"></td>
-            <td th:text="${hist.year}"></td>
-            <td th:text="${hist.issue}"></td>
-            <td th:if="${hist.fixed}" th:text="${hist.costs}"></td>
-            <td th:if="${!hist.fixed}" th:text="#{no.fixed}"></td>
+        <tr th:each="record : ${records}">
+            <td th:text="${record.regTime}"></td>
+            <td th:text="${record.plateNr}"></td>
+            <td th:text="${record.brand}"></td>
+            <td th:text="${record.model}"></td>
+            <td th:text="${record.year}"></td>
+            <td th:text="${record.issue}"></td>
+            <td th:if="${record.fixed}" th:text="${record.costs}"></td>
+            <td th:if="${!record.fixed}" th:text="#{no.fixed}"></td>
         </tr>
         </tbody>
     </table>
-    <ul th:replace="fragments/common :: pagination(${history})"></ul>
+    <ul th:replace="fragments/common :: pagination(${records})"></ul>
 </div>
 </body>
 </html>
